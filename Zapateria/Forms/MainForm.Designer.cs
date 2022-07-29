@@ -33,17 +33,21 @@
             // 
             // pContainer
             // 
-            this.pContainer.Location = new System.Drawing.Point(-1, -1);
+            this.pContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pContainer.Location = new System.Drawing.Point(0, 0);
+            this.pContainer.MinimumSize = new System.Drawing.Size(934, 561);
             this.pContainer.Name = "pContainer";
-            this.pContainer.Size = new System.Drawing.Size(918, 511);
+            this.pContainer.Size = new System.Drawing.Size(934, 561);
             this.pContainer.TabIndex = 0;
+            this.pContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.pContainer_Paint);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(840, 475);
+            this.ClientSize = new System.Drawing.Size(934, 561);
             this.Controls.Add(this.pContainer);
+            this.MinimumSize = new System.Drawing.Size(950, 600);
             this.Name = "MainForm";
             this.Text = "Customer Maintenance";
             this.ResumeLayout(false);

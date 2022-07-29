@@ -12,29 +12,6 @@ namespace Zapateria.Forms
             _parentInstance = parentInstance;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        /*private void createButton_Click(object sender, EventArgs e)
-        {
-            var username = userTextBox.Text;
-            var password = passTextBox.Text;
-
-            // En caso de que alguna de las dos cajas estén vacías.
-            if (username.Equals("") || password.Equals(""))
-            {
-                MessageBox.Show(@"Please fill in both boxes.");
-                return;
-            }
-
-            // Manda a crear el usuario en la base de datos y contesta de forma acorde.
-            MessageBox.Show(LoginService.CreateUser(username, "", password, false)
-                ? @"USER CREATION SUCCESSFUL"
-                : @"USER CREATION FAILED");
-        } */
-
         private void LoginButton_Click(object sender, EventArgs e)
         {
             var username = userTextBox.Text;
@@ -43,9 +20,12 @@ namespace Zapateria.Forms
             // Manda a autenticar al usuario con LoginService. Abre el menú principal si se logeó correctamente.
             if (LoginService.Authenticate(username, password))
             {
+                // Cierra el login form y abre el form que corresponda.
                 if (LoginService.IsUserAdmin(username))
                 {
-                    _parentInstance.ShowAdminForm();
+                    var adminForm = new AdminForm(_parentInstance);
+
+                    _parentInstance.ShowForm(adminForm);
                 }
                 else
                 {
@@ -59,6 +39,12 @@ namespace Zapateria.Forms
         private void ExitButton_Click(object sender, EventArgs e)
         {
             _parentInstance.Close();
+        }
+
+        private void PassTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                LoginButton_Click(sender, e);
         }
     }
 }

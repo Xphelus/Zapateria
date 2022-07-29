@@ -8,15 +8,16 @@
 
             var adminBit = isAdmin ? 1 : 0;
 
-            // Para verificar que el usuario no exista antes
+            // Obtiene del server los usuarios que tengan ese ID.
+            // User_ID es un Primary Key, entonces siempre va a ser o 1 usuario, o ninguno, ya que el Primary Key es único.
             var query = $"SELECT * FROM Users WHERE User_ID = '{userId}'";
             var ds = service.FetchData(query);
 
+            // Verifica si el usuario existe desde antes para no intentar crear uno nuevo con el mismo ID.
             if (ds.Tables[0].Rows.Count > 0)
                 return false;
 
             query = $"INSERT INTO Users VALUES ('{userId}','{name}', '{password}', {adminBit})";
-
             service.SendData(query);
 
             return true;
@@ -26,8 +27,9 @@
         {
             var service = new DataService();
 
+            // Obtiene del server los usuarios que tengan ese ID.
+            // User_ID es un Primary Key, entonces siempre va a ser o 1 usuario, o ninguno, ya que el Primary Key es único.
             var query = $"SELECT * FROM Users WHERE User_ID = '{userId}'";
-
             var ds = service.FetchData(query);
 
             try
@@ -38,6 +40,7 @@
             }
             catch (IndexOutOfRangeException)
             {
+                // El programa tira IndexOutOfRangeException si Rows[0] no existe, lo que significa que el usuario tampoco. Retorna falso.
                 return false;
             }
         }

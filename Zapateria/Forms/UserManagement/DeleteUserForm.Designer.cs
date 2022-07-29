@@ -50,7 +50,6 @@
             this.userIdLabel.Size = new System.Drawing.Size(70, 25);
             this.userIdLabel.TabIndex = 3;
             this.userIdLabel.Text = "User ID";
-            this.userIdLabel.Click += new System.EventHandler(this.userIdLabel_Click);
             // 
             // cancelButton
             // 

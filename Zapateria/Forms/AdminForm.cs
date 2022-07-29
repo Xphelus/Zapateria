@@ -12,43 +12,89 @@ namespace Zapateria.Forms
             _parentInstance = parentInstance;
             InitializeComponent();
 
-            RefreshTable();
+            CollapseMenus();
+        }
+
+        private void ViewUserButton_Click(object sender, EventArgs e)
+        {
+            mainPanel.Controls.Clear();
+            ToggleTable();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            _parentInstance.ShowAddUserForm();
+            // TODO: Abrir add user en el sidepanel en lugar del main form.
+
+            var addUser = new AddUserForm(_parentInstance);
+            _parentInstance.ShowForm(addUser);
         }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            // TODO: Abrir edit user en el sidepanel en lugar del main form.
+
+            var editUser = new EditUserForm(_parentInstance);
+
+            _parentInstance.ShowForm(editUser);
+        }
+
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            _parentInstance.ShowDeleteUserForm();
+            // TODO: Abrir delete user en el sidepanel en lugar del main form.
+            
+            var deleteUser = new DeleteUserForm(_parentInstance);
+            _parentInstance.ShowForm(deleteUser);
         }
 
-        private void RefreshTable()
+        private void ToggleTable()
         {
-            // Consigue la tabla de Users entera de la base de datos.
-            var service = new DataService();
-            var query = "SELECT * from Users";
-            var dt = service.RetrieveDataTable(query);
+            if (dataGrid.Visible)
+            {
+                dataGrid.Visible = false;
+                mainPanel.Controls.Clear();
+            }
+            else
+            {
+                // Consigue la tabla de Users entera de la base de datos.
+                var service = new DataService();
+                var dt = service.RetrieveDataTable("SELECT * from Users");
 
-            // Enseña la tabla por medio del DataGridView
-            dataGridView1.DataSource = new BindingSource(dt, null);
+                // Enseña la tabla por medio del DataGridView
+                dataGrid.DataSource = new BindingSource(dt, null);
+
+                mainPanel.Controls.Add(dataGrid);
+
+                dataGrid.Visible = true;
+            }
         }
 
         private void LogOutButton_Click(object sender, EventArgs e)
         {
-            _parentInstance.ShowLoginForm();
+            var login = new LoginForm(_parentInstance);
+
+            _parentInstance.ShowForm(login);
             Close();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void AdminMenuButton_Click(object sender, EventArgs e)
         {
-
+            ToggleSubmenu(adminSubmenu);
         }
 
-        private void editButton_Click(object sender, EventArgs e)
+        private void CollapseMenus()
         {
-            _parentInstance.ShowEditUserForm();
+            adminSubmenu.Visible = false;
+        }
+
+        private void ToggleSubmenu(Control submenu)
+        {
+            if (!submenu.Visible)
+            {
+                CollapseMenus();
+                submenu.Visible = true;
+            }
+            else
+                submenu.Visible = false;
         }
     }
 }

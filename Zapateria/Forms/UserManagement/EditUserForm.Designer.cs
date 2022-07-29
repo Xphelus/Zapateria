@@ -159,7 +159,6 @@
             this.Controls.Add(this.userIdLabel);
             this.Name = "EditUserForm";
             this.Text = "Add User";
-            this.Load += new System.EventHandler(this.AddUserForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

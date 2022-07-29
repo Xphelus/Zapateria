@@ -37,13 +37,10 @@ namespace Zapateria.Forms.UserManagement
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            _parentInstance.ShowAdminForm();
+            var adminForm = new AdminForm(_parentInstance);
+
+            _parentInstance.ShowForm(adminForm);
             Close();
-        }
-
-        private void AddUserForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void FetchButton_Click(object sender, EventArgs e)
