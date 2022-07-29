@@ -55,9 +55,11 @@
             this.viewUserButton.ForeColor = System.Drawing.Color.White;
             this.viewUserButton.Location = new System.Drawing.Point(0, 0);
             this.viewUserButton.Name = "viewUserButton";
+            this.viewUserButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.viewUserButton.Size = new System.Drawing.Size(207, 30);
             this.viewUserButton.TabIndex = 0;
             this.viewUserButton.Text = "View Users";
+            this.viewUserButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.viewUserButton.UseVisualStyleBackColor = false;
             this.viewUserButton.Click += new System.EventHandler(this.ViewUserButton_Click);
             // 
@@ -90,9 +92,11 @@
             this.addButton.ForeColor = System.Drawing.Color.White;
             this.addButton.Location = new System.Drawing.Point(0, 30);
             this.addButton.Name = "addButton";
+            this.addButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.addButton.Size = new System.Drawing.Size(207, 30);
             this.addButton.TabIndex = 2;
             this.addButton.Text = "Add User";
+            this.addButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -106,9 +110,11 @@
             this.editUserButton.ForeColor = System.Drawing.Color.White;
             this.editUserButton.Location = new System.Drawing.Point(0, 60);
             this.editUserButton.Name = "editUserButton";
+            this.editUserButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.editUserButton.Size = new System.Drawing.Size(207, 30);
             this.editUserButton.TabIndex = 3;
             this.editUserButton.Text = "Edit User";
+            this.editUserButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.editUserButton.UseVisualStyleBackColor = false;
             this.editUserButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
@@ -164,14 +170,17 @@
             this.deleteUserButton.ForeColor = System.Drawing.Color.White;
             this.deleteUserButton.Location = new System.Drawing.Point(0, 90);
             this.deleteUserButton.Name = "deleteUserButton";
+            this.deleteUserButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.deleteUserButton.Size = new System.Drawing.Size(207, 30);
             this.deleteUserButton.TabIndex = 7;
             this.deleteUserButton.Text = "Delete User";
+            this.deleteUserButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.deleteUserButton.UseVisualStyleBackColor = false;
             this.deleteUserButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // adminMenuButton
             // 
+            this.adminMenuButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(51)))), ((int)(((byte)(53)))));
             this.adminMenuButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.adminMenuButton.FlatAppearance.BorderSize = 0;
             this.adminMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -183,7 +192,7 @@
             this.adminMenuButton.TabIndex = 1;
             this.adminMenuButton.Text = "Admin";
             this.adminMenuButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.adminMenuButton.UseVisualStyleBackColor = true;
+            this.adminMenuButton.UseVisualStyleBackColor = false;
             this.adminMenuButton.Click += new System.EventHandler(this.AdminMenuButton_Click);
             // 
             // topLeftPanel
