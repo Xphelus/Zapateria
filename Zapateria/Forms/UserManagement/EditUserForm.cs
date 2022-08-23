@@ -1,14 +1,13 @@
-﻿using Zapateria.Code;
+﻿using System.Data;
+using System.Data.SqlClient;
+using Zapateria.Code;
 
 namespace Zapateria.Forms.UserManagement
 {
     public partial class EditUserForm : Form
     {
-        private readonly MainForm _parentInstance;
-
-        public EditUserForm(MainForm parentInstance)
+        public EditUserForm()
         {
-            _parentInstance = parentInstance;
             InitializeComponent();
 
             editButton.Enabled = false;
@@ -32,23 +31,26 @@ namespace Zapateria.Forms.UserManagement
 
 
             var service = new DataService();
-            service.SendData(query);
-        }
 
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            var adminForm = new AdminForm(_parentInstance);
+            try
+            {
+                service.SendData(query);
+            }
+            catch (SqlException ex)
+            {
+                // Si ocurre algún error, lo muestra acá.
+                // La expresión LINQ fue sugerencia de la extensión ReSharper, como reemplazo más compacto para un foreach que concatena el texto de los errores.
+                var print = ex.Errors.Cast<SqlError>()
+                    .Aggregate("", (current, error) => current + error.Message + "\n");
 
-            _parentInstance.ShowForm(adminForm);
-            Close();
+                MessageBox.Show(owner: this, print);
+            }
         }
 
         private void FetchButton_Click(object sender, EventArgs e)
         {
             if (userIdTextBox.Enabled)
             {
-                userIdTextBox.Enabled = false;
-
                 var userId = userIdTextBox.Text;
 
                 if (userId is null or "")
@@ -57,10 +59,36 @@ namespace Zapateria.Forms.UserManagement
                 var service = new DataService();
                 var query = $"SELECT * FROM Users WHERE User_ID = '{userId}'";
 
-                var ds = service.FetchData(query);
+                DataSet ds;
+
+                try
+                {
+                    ds = service.FetchData(query);
+                }
+                catch (SqlException ex)
+                {
+                    // Si ocurre algún error, lo muestra acá.
+                    // La expresión LINQ fue sugerencia de la extensión ReSharper, como reemplazo más compacto para un foreach que concatena el texto de los errores.
+                    var print = ex.Errors.Cast<SqlError>()
+                        .Aggregate("", (current, error) => current + error.Message + "\n");
+
+                    MessageBox.Show(owner: this, print);
+                    return;
+                }
+
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    MessageBox.Show(owner: this, @"That user does not exist!");
+                    return;
+                }
+
+                userIdTextBox.Enabled = false;
 
                 userNameTextBox.Text = ds.Tables[0].Rows[0]["User_Name"].ToString();
+                // ReSharper tira un Warning acá sobre un posible argumento nulo. Esto en la práctica es imposible gracias al check que hace el if statement arriba.
+                #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 adminCheckBox.Checked = ds.Tables[0].Rows[0]["IsAdmin"].ToString().Equals("True");
+                #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
                 // Solo se puede cambiar la contraseña del admin pero no lo demás.
                 if (userId == "admin")

@@ -4,20 +4,10 @@ namespace Zapateria.Forms.UserManagement
 {
     public partial class DeleteUserForm : Form
     {
-        private readonly MainForm _parentInstance;
 
-        public DeleteUserForm(MainForm parentInstance)
+        public DeleteUserForm()
         {
-            _parentInstance = parentInstance;
             InitializeComponent();
-        }
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            var adminForm = new AdminForm(_parentInstance);
-
-            _parentInstance.ShowForm(adminForm);
-            Close();
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -54,10 +44,7 @@ namespace Zapateria.Forms.UserManagement
             query = $"DELETE FROM Users WHERE User_ID = '{userId}'";
             service.SendData(query);
 
-            var adminForm = new AdminForm(_parentInstance);
-
-            _parentInstance.ShowForm(adminForm);
-            Close();
+            userIdTextBox.Clear();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Zapateria
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            var mainForm = new MainForm();
+            var mainForm = new ContainerForm();
             var loginForm = new LoginForm(mainForm);
             mainForm.ShowForm(loginForm);
 

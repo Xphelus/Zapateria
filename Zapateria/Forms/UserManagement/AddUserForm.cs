@@ -4,11 +4,8 @@ namespace Zapateria.Forms.UserManagement
 {
     public partial class AddUserForm : Form
     {
-        private readonly MainForm _parentInstance;
-
-        public AddUserForm(MainForm parentInstance)
+        public AddUserForm()
         {
-            _parentInstance = parentInstance;
             InitializeComponent();
         }
 
@@ -26,23 +23,8 @@ namespace Zapateria.Forms.UserManagement
             // Manda los datos de las cajas al Servicio para que intente crear un usuario.
             var success = LoginService.CreateUser(userId, userName, password, isAdmin);
 
-            if (success)
-            {
-                var adminForm = new AdminForm(_parentInstance);
-
-                _parentInstance.ShowForm(adminForm);
-                Close();
-            }
-            else
+            if (!success)
                 MessageBox.Show(@"Error: Could not create user.");
-        }
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            var adminForm = new AdminForm(_parentInstance);
-
-            _parentInstance.ShowForm(adminForm);
-            Close();
         }
     }
 }

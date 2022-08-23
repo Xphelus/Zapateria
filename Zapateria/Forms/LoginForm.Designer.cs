@@ -74,6 +74,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.userTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(51)))), ((int)(((byte)(53)))));
+            this.userTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.userTextBox.ForeColor = System.Drawing.Color.White;
             this.userTextBox.Location = new System.Drawing.Point(21, 149);
             this.userTextBox.Name = "userTextBox";
@@ -100,6 +101,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.passTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(51)))), ((int)(((byte)(53)))));
+            this.passTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.passTextBox.ForeColor = System.Drawing.Color.White;
             this.passTextBox.Location = new System.Drawing.Point(21, 230);
             this.passTextBox.Name = "passTextBox";

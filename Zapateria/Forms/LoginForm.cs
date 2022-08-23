@@ -4,9 +4,9 @@ namespace Zapateria.Forms
 {
     public partial class LoginForm : Form
     {
-        private readonly MainForm _parentInstance;
+        private readonly ContainerForm _parentInstance;
 
-        public LoginForm(MainForm parentInstance)
+        public LoginForm(ContainerForm parentInstance)
         {
             InitializeComponent();
             _parentInstance = parentInstance;
@@ -20,20 +20,17 @@ namespace Zapateria.Forms
             // Manda a autenticar al usuario con LoginService. Abre el menú principal si se logeó correctamente.
             if (LoginService.Authenticate(username, password))
             {
-                // Cierra el login form y abre el form que corresponda.
-                if (LoginService.IsUserAdmin(username))
-                {
-                    var adminForm = new AdminForm(_parentInstance);
+                ContainerForm.Username = username;
 
-                    _parentInstance.ShowForm(adminForm);
-                }
-                else
-                {
-                    // TODO: Open user menu
-                }
+                // Cierra el login form y abre el form que corresponde. Habilita o desabilita el botón de administrador dependiendo de los permisos del usuario.
+                var isAdmin = LoginService.IsUserAdmin(username);
+
+                var menuForm = new MainForm(_parentInstance, isAdmin);
+
+                _parentInstance.ShowForm(menuForm);
             }
             else
-                MessageBox.Show(owner: this,@"LOGIN FAILED");
+                MessageBox.Show(owner: this,@"Login Failed: Check your credentials and try again.");
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
